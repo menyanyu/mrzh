@@ -18,7 +18,8 @@
         }}</span></span
       >
     </div>
-    <div class="jieguo">{{ jieguo }}</div>
+    <div class="jieguo">{{ jieguo1 }}</div>
+    <div class="jieguo">{{ jieguo2 }}</div>
     <button @click="calc">计算</button>
   </div>
 </template>
@@ -31,7 +32,8 @@ export default {
       numItem: '',
       heji: '',
       price: [],
-      jieguo: '',
+      jieguo1: '',
+      jieguo2:'',
       stuff: '',
       sum: ''
     }
@@ -49,10 +51,13 @@ export default {
       }
       var t1 = '共需：'
       var t2 = '金条'
+      var t3 = '15%税后：'
+      var shSum = Math.round(sum-sum*0.15)
       if (sum == '0') {
-        this.jieguo = '请输入价格'
+        this.jieguo1 = '请输入价格'
       } else {
-        this.jieguo = t1 + sum + t2
+        this.jieguo1 = t1 + sum + t2
+        this.jieguo2 = t3 + shSum + t2
       }
     }
   },
