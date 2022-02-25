@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h2>{{stuff.goodName }}</h2>
+    <h2>{{ stuff.goodName }}</h2>
     <div class="box" v-for="value in stuff.stuff" :key="value.id">
       <span class="tit">{{ value.name }}x{{ value.num }}</span>
       <span class="ipt"
@@ -14,10 +14,17 @@
       /></span>
       <span class="hj"
         >合计：<span class="price" ref="numItem" v-if="price[value.name]">{{
-          /^[0-9]*$/g.test(price[value.name]) ? price[value.name] * value.num : price[value.name] =""
+          /^[0-9]*$/g.test(price[value.name])
+            ? price[value.name] * value.num
+            : (price[value.name] = "")
         }}</span></span
       >
     </div>
+    <span v-if="stuff.type == '半成品'"
+      >制作数量：<input type="range" v-model="num" min="1" max="20" />{{
+        num
+      }}</span
+    >
     <div class="jieguo">{{ jieguo1 }}</div>
     <div class="jieguo">{{ jieguo2 }}</div>
     <button @click="calc">计算</button>
@@ -25,51 +32,51 @@
 </template>
 
 <script>
-import { loginAxios } from '@/axios/network'
+import { loginAxios } from "@/axios/network";
 export default {
-  data () {
+  data() {
     return {
-      numItem: '',
-      heji: '',
+      numItem: "",
+      heji: "",
       price: [],
-      jieguo1: '',
-      jieguo2:'',
-      stuff: '',
-      sum: ''
-    }
+      jieguo1: "",
+      jieguo2: "",
+      stuff: "",
+      sum: "",
+      num: 1,
+    };
   },
   components: {},
 
   methods: {
-
     // 计算结果
-    calc () {
-      var arr = this.$refs.numItem
-      var sum = 0
+    calc() {
+      var arr = this.$refs.numItem;
+      var sum = 0;
       for (var i in arr) {
-        sum += Number(arr[i].innerText)
+        sum += Number(arr[i].innerText * this.num);
       }
-      var t1 = '共需：'
-      var t2 = '金条'
-      var t3 = '15%税后：'
-      var shSum = Math.round(sum-sum*0.15)
-      if (sum == '0') {
-        this.jieguo1 = '请输入价格'
+      var t1 = "共需：";
+      var t2 = "金条";
+      var t3 = "15%税后：";
+      var shSum = Math.round(sum - sum * 0.15);
+      if (sum == "0") {
+        this.jieguo1 = "请输入价格";
       } else {
-        this.jieguo1 = t1 + sum + t2
-        this.jieguo2 = t3 + shSum + t2
+        this.jieguo1 = t1 + sum + t2;
+        this.jieguo2 = t3 + shSum + t2;
       }
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     // 接收$route传过来的数据并发送查询请求
-    var goodsName = this.$route.query.goodsName
+    var goodsName = this.$route.query.goodsName;
     loginAxios(goodsName).then((res) => {
-      this.stuff = res.data.data[0]
-    })
-  }
-}
+      this.stuff = res.data.data[0];
+    });
+  },
+};
 </script>
 
 <style lang="less" scoped>
