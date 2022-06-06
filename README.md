@@ -1,24 +1,15 @@
 # mrzh
 
-## Project setup
-```
-npm install
-```
+#### 介绍
+一个简易的明日之后物价计算工具,欢迎喜欢明日之后这款游戏的大神，提供意见指导和贡献，
+包含了所有交易市场能买到的可制作物品，商人必备神器
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+#### 安装教程
 
-### Lints and fixes files
-```
-npm run lint
-```
+1安装依赖. npm install
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+2启动. npm run serve
+
+3编译. npm run build
+
